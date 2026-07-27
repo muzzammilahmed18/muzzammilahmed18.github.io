@@ -179,14 +179,26 @@ if (contactForm) {
             return;
         }
 
-        // NOTE: This form currently only validates on the client side.
-        // To actually receive messages, connect it to a service like
-        // Formspree (https://formspree.io) or EmailJS (https://www.emailjs.com),
-        // then replace this block with a fetch() call to that endpoint.
-        formStatus.textContent = "Thanks! Your message has been prepared. Connect a form service to enable real delivery.";
-        formStatus.className = 'form-status success';
-        contactForm.reset();
-    });
+        fetch('https://formspree.io/f/mojgyped', {
+            method: 'POST',
+            headers: { 'Accept': 'application/json' },
+            body: new FormData(contactForm)
+        })
+        .then(response => {
+            if (response.ok) {
+                formStatus.textContent = "Thanks! Your message has been sent — I'll get back to you soon.";
+                formStatus.className = 'form-status success';
+                contactForm.reset();
+            } else {
+                formStatus.textContent = "Something went wrong. Please try again or email me directly.";
+                formStatus.className = 'form-status error';
+            }
+        })
+        .catch(() => {
+            formStatus.textContent = "Something went wrong. Please try again or email me directly.";
+            formStatus.className = 'form-status error';
+        });
+    }); // closes the submit event listener
 
     // Clear the invalid state as the user types
     contactForm.querySelectorAll('input, textarea').forEach(field => {
@@ -195,4 +207,4 @@ if (contactForm) {
             if (group) group.classList.remove('invalid');
         });
     });
-}
+} 
