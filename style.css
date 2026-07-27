@@ -356,6 +356,32 @@ nav.scrolled {
     border-color: var(--accent-color);
 }
 
+.btn-resume {
+    background: transparent;
+    color: var(--text-primary);
+    border: 2px solid var(--accent-color);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-resume i {
+    font-size: 0.85rem;
+    transition: transform 0.3s ease;
+}
+
+.btn-resume:hover {
+    background: linear-gradient(135deg, var(--accent-color) 0%, var(--primary-color) 100%);
+    border-color: transparent;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(240, 147, 251, 0.35);
+}
+
+.btn-resume:hover i {
+    transform: translateY(3px);
+}
+
 /* Sections */
 section {
     padding: 100px 0;
