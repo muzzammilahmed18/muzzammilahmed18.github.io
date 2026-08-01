@@ -35,11 +35,12 @@ const observer = new IntersectionObserver((entries) => {
 document.querySelectorAll('.reveal').forEach(el => {
     observer.observe(el);
 });
-// Parallax effect for hero section
+// Parallax effect for hero section (only while the hero is still in view)
 window.addEventListener('scroll', () => {
     const scrolled = window.pageYOffset;
     const hero = document.querySelector('.hero-content');
-    if (hero) {
+    const heroSection = document.querySelector('.hero');
+    if (hero && heroSection && scrolled < heroSection.offsetHeight) {
         hero.style.transform = `translateY(${scrolled * 0.5}px)`;
     }
 });
